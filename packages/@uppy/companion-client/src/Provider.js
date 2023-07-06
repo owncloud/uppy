@@ -24,6 +24,7 @@ export default class Provider extends RequestClient {
     this.tokenKey = `companion-${this.pluginId}-auth-token`
     this.companionKeysParams = this.opts.companionKeysParams
     this.preAuthToken = null
+    this.authentication = opts.authentication ?? true
   }
 
   async headers () {
@@ -143,6 +144,9 @@ export default class Provider extends RequestClient {
   }
 
   async logout () {
+    if (!this.authentication) {
+      return Promise.resolve({ ok: true, revoked: true })
+    }
     const response = await this.get(`${this.id}/logout${queryString(this.cutomQueryParams)}`)
     await this.#removeAuthToken()
     return response
