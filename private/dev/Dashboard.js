@@ -4,6 +4,7 @@ import Uppy, { debugLogger } from '@uppy/core'
 import Dashboard from '@uppy/dashboard'
 import RemoteSources from '@uppy/remote-sources'
 import Webcam from '@uppy/webcam'
+import { WebdavAuth, WebdavPublicLink } from '@uppy/webdav'
 import ScreenCapture from '@uppy/screen-capture'
 import GoldenRetriever from '@uppy/golden-retriever'
 import Tus from '@uppy/tus'
@@ -81,6 +82,14 @@ export default () => {
       note: `${JSON.stringify(restrictions)}`,
     })
     // .use(GoogleDrive, { target: Dashboard, companionUrl: COMPANION_URL, companionAllowedHosts })
+
+    .use(WebdavAuth, { target: Dashboard, companionUrl: COMPANION_URL, companionAllowedHosts })
+    .use(WebdavPublicLink, { target: Dashboard, companionUrl: COMPANION_URL, companionAllowedHosts })
+    .use(WebdavAuth, { target: Dashboard, companionUrl: COMPANION_URL, companionAllowedHosts, cloudType: 'owncloud' })
+    .use(WebdavPublicLink, { target: Dashboard, companionUrl: COMPANION_URL, companionAllowedHosts, cloudType: 'owncloud' })
+    .use(WebdavAuth, { target: Dashboard, companionUrl: COMPANION_URL, companionAllowedHosts, cloudType: 'nextcloud' })
+    .use(WebdavPublicLink, { target: Dashboard, companionUrl: COMPANION_URL, companionAllowedHosts, cloudType: 'nextcloud' })
+
     // .use(Instagram, { target: Dashboard, companionUrl: COMPANION_URL, companionAllowedHosts })
     // .use(Dropbox, { target: Dashboard, companionUrl: COMPANION_URL, companionAllowedHosts })
     // .use(Box, { target: Dashboard, companionUrl: COMPANION_URL, companionAllowedHosts })
