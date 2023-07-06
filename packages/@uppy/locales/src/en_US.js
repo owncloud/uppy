@@ -120,6 +120,8 @@ en_US.strings = {
   pluginNameGoogleDrive: 'Google Drive',
   pluginNameInstagram: 'Instagram',
   pluginNameOneDrive: 'OneDrive',
+  pluginNameWebdavAuth: 'WebDAV',
+  pluginNameWebdavPublicLink: 'Public Link',
   pluginNameZoom: 'Zoom',
   poweredBy: 'Powered by %{uppy}',
   processingXFiles: {

@@ -1,0 +1,12 @@
+diff --git a/dist/node/types.d.ts b/dist/node/types.d.ts
+index f83ab515d230cb299a8aed4e13d6ad867efe2e61..346c3b762e6364e3bb016bc4fb50bc56fd649a56 100644
+--- a/dist/node/types.d.ts
++++ b/dist/node/types.d.ts
+@@ -1,6 +1,6 @@
+ /// <reference types="node" />
+ /// <reference types="node" />
+-import Stream from "node:stream";
++import * as Stream from "node:stream";
+ import { Response } from "@buttercup/fetch";
+ export { Request, Response } from "@buttercup/fetch";
+ export type AuthHeader = string;

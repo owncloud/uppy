@@ -6,7 +6,8 @@ const { respondWithError } = require('../provider/error')
  * @param {{ query: object, params: object, companion: object, session: object }} req
  * @param {object} res
  */
-async function logout ({ query, params, companion, session }, res, next) {
+async function logout (req, res, next) {
+  const { query, params, companion, session } = req
   const cleanSession = () => {
     if (session.grant) {
       session.grant.state = null
