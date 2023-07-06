@@ -293,8 +293,8 @@ export default class ProviderView extends View {
     }
   }
 
-  async recursivelyListAllFiles (path, queue, onFiles) {
-    let curPath = path
+  async recursivelyListAllFiles (requestPath, directories, queue, onFiles) {
+    let curPath = requestPath
 
     while (curPath) {
       const res = await this.provider.list(curPath)
@@ -303,11 +303,14 @@ export default class ProviderView extends View {
       const files = res.items.filter((item) => !item.isFolder)
       const folders = res.items.filter((item) => item.isFolder)
 
+      // eslint-disable-next-line
+      files.forEach(f => f.relativePath = `/${directories.map(d => d.name).join('/')}/${f.name}`)
+
       onFiles(files)
 
       // recursively queue call to self for each folder
       const promises = folders.map(async (folder) => queue.add(async () => (
-        this.recursivelyListAllFiles(folder.requestPath, queue, onFiles)
+        this.recursivelyListAllFiles(folder.requestPath, [...directories, folder], queue, onFiles)
       )))
       await Promise.all(promises) // in case we get an error
     }
@@ -346,7 +349,7 @@ export default class ProviderView extends View {
             }
           }
 
-          await this.recursivelyListAllFiles(requestPath, queue, onFiles)
+          await this.recursivelyListAllFiles(requestPath, [file], queue, onFiles)
           await queue.onIdle()
 
           let message
