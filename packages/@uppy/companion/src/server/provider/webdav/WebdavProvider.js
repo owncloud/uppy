@@ -43,28 +43,23 @@ class WebdavProvider extends Provider {
       /** @type {any} */
       const dir = await client.getDirectoryContents(directory || '/')
 
-      dir.forEach(
-        /**
-         * @param {import('webdav').FileStat} item
-         */
-        item => {
-          const isFolder = item.type === 'directory'
-          const requestPath = encodeURIComponent(`${directory || ''}/${item.basename}`)
-          data.items.push({
-            isFolder,
-            id: requestPath,
-            name: item.basename,
-            requestPath, // TODO
-            modifiedDate: item.lastmod, // TODO: convert  'Tue, 04 Jul 2023 13:09:47 GMT' to  ISO 8601
-            ...(!isFolder && {
-              mimeType: item.mime,
-              size: item.size,
-              thumbnail: null,
+      dir.forEach(item => {
+        const isFolder = item.type === 'directory'
+        const requestPath = encodeURIComponent(`${directory || ''}/${item.basename}`)
+        data.items.push({
+          isFolder,
+          id: requestPath,
+          name: item.basename,
+          requestPath, // TODO
+          modifiedDate: item.lastmod, // TODO: convert  'Tue, 04 Jul 2023 13:09:47 GMT' to  ISO 8601
+          ...(!isFolder && {
+            mimeType: item.mime,
+            size: item.size,
+            thumbnail: null,
 
-            }),
-          })
-        },
-      )
+          }),
+        })
+      })
 
       return data
     })

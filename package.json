@@ -175,7 +175,8 @@
     "preact": "patch:preact@npm:10.10.0#.yarn/patches/preact-npm-10.10.0-dd04de05e8.patch",
     "pre-commit": "patch:pre-commit@npm:1.2.2#.yarn/patches/pre-commit-npm-1.2.2-f30af83877.patch",
     "start-server-and-test": "patch:start-server-and-test@npm:1.14.0#.yarn/patches/start-server-and-test-npm-1.14.0-841aa34fdf.patch",
-    "webdav@^5.2.2": "patch:webdav@npm%3A5.2.2#./.yarn/patches/webdav-npm-5.2.2-791e72c3de.patch"
+    "webdav@^5.2.2": "patch:webdav@npm%3A5.2.2#./.yarn/patches/webdav-npm-5.2.2-791e72c3de.patch",
+    "stylelint": "^14"
   },
   "volta": {
     "node": "18.16.1",
