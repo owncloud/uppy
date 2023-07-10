@@ -139,6 +139,7 @@ def buildRelease(ctx):
                 "title": ctx.build.ref.replace("refs/tags/v", ""),
                 "overwrite": True,
             },
+            "depends_on": ["build"],
             "when": {
                 "ref": [
                     "refs/tags/**",
