@@ -43,7 +43,7 @@ def lint(ctx):
             "image": OC_CI_NODEJS,
             "commands": [
                 "yarn set version 3.6.1",
-                "yarn",
+                "yarn install --immutable",
                 "yarn lint",
             ],
         }],
@@ -115,7 +115,7 @@ def buildRelease(ctx):
             "image": OC_CI_NODEJS,
             "commands": [
                 "yarn set version 3.6.1",
-                "yarn",
+                "yarn install --immutable",
                 "yarn run build",
                 "yarn workspaces foreach pack",
                 "./collect_release_artifacts.sh",
