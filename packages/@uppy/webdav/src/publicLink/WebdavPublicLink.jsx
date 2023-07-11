@@ -28,8 +28,12 @@ export default class WebdavPublicLink extends UIPlugin {
       companionCookiesRule: this.opts.companionCookiesRule,
       provider: 'webdavPublicLink',
       pluginId: this.id,
-      authentication: false,
     })
+    this.provider.login = async () => {
+    }
+    this.provider.logout = async () => {
+      return { ok: true, revoked: true }
+    }
 
     this.onFirstRender = this.onFirstRender.bind(this)
     this.render = this.render.bind(this)
