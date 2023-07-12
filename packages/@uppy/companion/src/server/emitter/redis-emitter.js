@@ -1,4 +1,4 @@
-const redis = require('redis')
+const Redis = require('ioredis').default
 const { EventEmitter } = require('node:events')
 
 const logger = require('../logger')
@@ -11,13 +11,13 @@ const logger = require('../logger')
 module.exports = (redisUrl, redisPubSubScope) => {
   const prefix = redisPubSubScope ? `${redisPubSubScope}:` : ''
   const getPrefixedEventName = (eventName) => `${prefix}${eventName}`
-  const publisher = redis.createClient({ url: redisUrl })
-  publisher.on('error', err => logger.error('publisher redis error', err))
+  const publisher = new Redis(redisUrl)
+  publisher.on('error', err => logger.error('publisher redis error', err.toString()))
   let subscriber
 
   const connectedPromise = publisher.connect().then(() => {
     subscriber = publisher.duplicate()
-    subscriber.on('error', err => logger.error('subscriber redis error', err))
+    subscriber.on('error', err => logger.error('subscriber redis error', err.toString()))
     return subscriber.connect()
   })
 
