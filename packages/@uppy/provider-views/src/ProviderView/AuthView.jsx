@@ -60,9 +60,9 @@ function AuthView (props) {
       <form className="uppy-Provider-authForm" onSubmit={handleAuth}>
         {inputs?.map((i) => (
           <div className="uppy-Provider-authInput">
-            <label htmlFor={`uppy-Provider-authInput-${i.id}`}>
+            <label htmlFor={`uppy-Provider-authInput-${i.name}`}>
               <span>{i.label}</span>
-              <input id={`uppy-Provider-authInput-${i.id}`} name={i.name} type={i.type || 'text'} defaultValue={i.defaultValue} />
+              <input id={`uppy-Provider-authInput-${i.name}`} name={i.name} type={i.type || 'text'} defaultValue={i.defaultValue} />
             </label>
             {i.description && (<span>{i.description}</span>)}
           </div>
