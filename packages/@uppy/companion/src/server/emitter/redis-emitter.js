@@ -1,23 +1,23 @@
-const redis = require('redis')
 const { EventEmitter } = require('node:events')
 
 const logger = require('../logger')
+const redis = require('../redis')
 
 /**
  * This module simulates the builtin events.EventEmitter but with the use of redis.
  * This is useful for when companion is running on multiple instances and events need
  * to be distributed across.
  */
-module.exports = (redisUrl, redisPubSubScope) => {
+module.exports = (redisPubSubScope) => {
   const prefix = redisPubSubScope ? `${redisPubSubScope}:` : ''
   const getPrefixedEventName = (eventName) => `${prefix}${eventName}`
-  const publisher = redis.createClient({ url: redisUrl })
-  publisher.on('error', err => logger.error('publisher redis error', err))
+  const publisher = redis.client().duplicate({ lazyConnect: true })
+  publisher.on('error', err => logger.error('publisher redis error', err.toString()))
   let subscriber
 
   const connectedPromise = publisher.connect().then(() => {
     subscriber = publisher.duplicate()
-    subscriber.on('error', err => logger.error('subscriber redis error', err))
+    subscriber.on('error', err => logger.error('subscriber redis error', err.toString()))
     return subscriber.connect()
   })
 
@@ -56,12 +56,17 @@ module.exports = (redisUrl, redisPubSubScope) => {
       handlersByThisEventName.delete(handler)
       if (handlersByThisEventName.size === 0) handlersByEvent.delete(eventName)
 
-      return subscriber.pUnsubscribe(getPrefixedEventName(eventName), actualHandler)
+      subscriber.off('message', actualHandler)
+      return subscriber.punsubscribe(getPrefixedEventName(eventName))
     })
   }
 
   function addListener (eventName, handler, _once = false) {
-    function actualHandler (message) {
+    function actualHandler (pattern, channel, message) {
+      if (pattern !== getPrefixedEventName(eventName)) {
+        return
+      }
+
       if (_once) removeListener(eventName, handler)
       let args
       try {
@@ -79,7 +84,10 @@ module.exports = (redisUrl, redisPubSubScope) => {
     }
     handlersByThisEventName.set(handler, actualHandler)
 
-    runWhenConnected(() => subscriber.pSubscribe(getPrefixedEventName(eventName), actualHandler))
+    runWhenConnected(() => {
+      subscriber.on('pmessage', actualHandler)
+      return subscriber.psubscribe(getPrefixedEventName(eventName))
+    })
   }
 
   /**
@@ -125,7 +133,7 @@ module.exports = (redisUrl, redisPubSubScope) => {
 
     return runWhenConnected(() => {
       handlersByEvent.delete(eventName)
-      return subscriber.pUnsubscribe(getPrefixedEventName(eventName))
+      return subscriber.punsubscribe(getPrefixedEventName(eventName))
     })
   }
 

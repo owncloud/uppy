@@ -84,10 +84,10 @@ module.exports.app = (optionsArg = {}) => {
   logger.setMaskables(getMaskableSecrets(options))
 
   // create singleton redis client
-  if (options.redisUrl) {
-    redis.client(options)
+  if (options.redisOptions) {
+    redis.client(options.redisOptions)
   }
-  const emitter = createEmitter(options.redisUrl, options.redisPubSubScope)
+  const emitter = createEmitter(options.redisOptions, options.redisPubSubScope)
 
   const app = express()
 
