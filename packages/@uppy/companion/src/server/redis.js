@@ -12,6 +12,7 @@ let redisClient
  */
 function createClient (opts) {
   if (!redisClient) {
+    console.log('NEW REDIS', opts)
     redisClient = new Redis(opts)
 
     redisClient.on('error', err => logger.error('redis error', err.toString()))
@@ -20,10 +21,10 @@ function createClient (opts) {
   return redisClient
 }
 
-module.exports.client = (companionOptions) => {
-  if (!companionOptions) {
+module.exports.client = (redisOptions) => {
+  if (!redisOptions) {
     return redisClient
   }
 
-  return createClient({ ...companionOptions.redisOptions, url: companionOptions.redisUrl })
+  return createClient(redisOptions)
 }
