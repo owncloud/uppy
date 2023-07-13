@@ -12,7 +12,6 @@ let redisClient
  */
 function createClient (opts) {
   if (!redisClient) {
-    console.log('NEW REDIS', opts)
     redisClient = new Redis(opts)
 
     redisClient.on('error', err => logger.error('redis error', err.toString()))
