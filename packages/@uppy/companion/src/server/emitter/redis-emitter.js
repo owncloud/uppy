@@ -120,9 +120,7 @@ module.exports = (redisUrl, redisPubSubScope) => {
    * @param {string} eventName name of the event
    */
   function emit (eventName, ...args) {
-    runWhenConnected(() => {
-      return publisher.publish(getPrefixedEventName(eventName), JSON.stringify(args))
-    })
+    runWhenConnected(() => publisher.publish(getPrefixedEventName(eventName), JSON.stringify(args)))
   }
 
   /**
