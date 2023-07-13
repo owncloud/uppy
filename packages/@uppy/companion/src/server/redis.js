@@ -12,7 +12,7 @@ let redisClient
  */
 function createClient (opts) {
   if (!redisClient) {
-    redisClient = new Redis(opts.url, opts)
+    redisClient = new Redis(opts)
 
     redisClient.on('error', err => logger.error('redis error', err.toString()))
   }

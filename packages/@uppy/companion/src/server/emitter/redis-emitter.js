@@ -1,17 +1,17 @@
-const Redis = require('ioredis').default
 const { EventEmitter } = require('node:events')
 
 const logger = require('../logger')
+const redis = require('../redis')
 
 /**
  * This module simulates the builtin events.EventEmitter but with the use of redis.
  * This is useful for when companion is running on multiple instances and events need
  * to be distributed across.
  */
-module.exports = (redisUrl, redisPubSubScope) => {
+module.exports = (redisPubSubScope) => {
   const prefix = redisPubSubScope ? `${redisPubSubScope}:` : ''
   const getPrefixedEventName = (eventName) => `${prefix}${eventName}`
-  const publisher = new Redis(redisUrl, { lazyConnect: true })
+  const publisher = redis.client().duplicate({ lazyConnect: true })
   publisher.on('error', err => logger.error('publisher redis error', err.toString()))
   let subscriber
 
