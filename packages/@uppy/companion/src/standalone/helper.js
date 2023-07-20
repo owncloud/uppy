@@ -153,18 +153,20 @@ const getConfigFromEnv = () => {
       ? parseInt(process.env.COMPANION_PERIODIC_PING_COUNT, 10) : undefined,
     filePath: process.env.COMPANION_DATADIR,
     redisPubSubScope: process.env.COMPANION_REDIS_PUBSUB_SCOPE,
+    redisUrl: process.env.COMPANION_REDIS_URL,
     // adding redisOptions to keep all companion options easily visible
     //  redisOptions refers to https://redis.github.io/ioredis/index.html#RedisOptions
     redisOptions: (() => {
       try {
+        if (!process.env.COMPANION_REDIS_OPTIONS) {
+          return undefined
+        }
         const obj = JSON.parse(process.env.COMPANION_REDIS_OPTIONS)
         return obj
       } catch (e) {
-        if (process.env.COMPANION_REDIS_OPTIONS) {
-          console.log('COMPANION_REDIS_OPTIONS parse error', e)
-        }
-        return process.env.COMPANION_REDIS_URL
+        console.log('COMPANION_REDIS_OPTIONS parse error', e)
       }
+      return undefined
     })(),
     sendSelfEndpoint: process.env.COMPANION_SELF_ENDPOINT,
     uploadUrls: uploadUrls ? uploadUrls.split(',') : null,
