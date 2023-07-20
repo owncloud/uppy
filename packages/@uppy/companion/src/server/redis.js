@@ -8,11 +8,16 @@ let redisClient
  * A Singleton module that provides a single redis client through out
  * the lifetime of the server
  *
- * @param {Record<string, any>} [opts] node-redis client options
+ * @param {string} [redisUrl] ioredis url
+ * @param {Record<string, any>} [redisOptions] ioredis client options
  */
-function createClient (opts) {
+function createClient (redisUrl, redisOptions) {
   if (!redisClient) {
-    redisClient = new Redis(opts)
+    if (redisUrl) {
+      redisClient = new Redis(redisUrl, redisOptions)
+    } else {
+      redisClient = new Redis(redisOptions)
+    }
 
     redisClient.on('error', err => logger.error('redis error', err.toString()))
   }
@@ -20,10 +25,10 @@ function createClient (opts) {
   return redisClient
 }
 
-module.exports.client = (redisOptions) => {
-  if (!redisOptions) {
+module.exports.client = (redisUrl, redisOptions) => {
+  if (!redisUrl && !redisOptions) {
     return redisClient
   }
 
-  return createClient(redisOptions)
+  return createClient(redisUrl, redisOptions)
 }
