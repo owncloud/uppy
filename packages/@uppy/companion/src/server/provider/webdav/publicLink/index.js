@@ -16,7 +16,7 @@ class WebdavPublicLink extends WebdavProvider {
     const [baseURL, publicLinkToken] = publicLinkURL.split('/s/')
     const { AuthType } = await import('webdav') // eslint-disable-line import/no-unresolved
     return this.getClientHelper({
-      url: `${baseURL}/public.php/webdav/`,
+      url: `${baseURL.replace('/index.php', '')}/public.php/webdav/`,
       authType: AuthType.Password,
       username: publicLinkToken,
       password: 'null',
