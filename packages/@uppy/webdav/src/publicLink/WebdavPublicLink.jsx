@@ -49,8 +49,8 @@ export default class WebdavPublicLink extends UIPlugin {
       authInputs: [
         {
           name: 'publicLinkURL',
-          label: 'Public Link URL',
-          description: 'Please provide a URL to a public link without password protection.',
+          label: this.i18n('publicLinkURLLabel'),
+          description: this.i18n('publicLinkURLDescription'),
         },
       ],
     })
