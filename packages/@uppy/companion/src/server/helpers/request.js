@@ -73,6 +73,8 @@ module.exports.validateURL = validateURL
 
 /**
  * Returns http Agent that will prevent requests to private IPs (to prevent SSRF)
+ *
+ * @returns {any}
  */
 const getProtectedHttpAgent = ({ protocol, blockLocalIPs }) => {
   function dnsLookup (hostname, options, callback) {
