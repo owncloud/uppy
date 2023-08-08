@@ -242,7 +242,18 @@ export default class ProviderView extends View {
     this.plugin.setPluginState({ filterInput: '' })
   }
 
-  async handleAuth () {
+  async handleAuth (event) {
+    event.preventDefault()
+
+    const formData = new FormData(event.target)
+    this.provider.cutomQueryParams = Object.fromEntries(formData.entries())
+    this.opts.authInputs?.forEach(i => {
+      if (!i.serialize) {
+        return
+      }
+      this.provider.cutomQueryParams[i.name] = i.serialize(this.provider.cutomQueryParams[i.name])
+    })
+
     const clientVersion = `@uppy/provider-views=${ProviderView.VERSION}`
     try {
       await this.provider.login({ uppyVersions: clientVersion })
@@ -478,6 +489,7 @@ export default class ProviderView extends View {
             handleAuth={this.handleAuth}
             i18n={this.plugin.uppy.i18n}
             i18nArray={this.plugin.uppy.i18nArray}
+            inputs={this.opts.authInputs}
           />
         </CloseWrapper>
       )
