@@ -3,18 +3,18 @@ const { respondWithError } = require('../provider/error')
 
 /**
  *
- * @param {object} req
+ * @param {{ query: object, params: object, companion: object, session: object }} req
  * @param {object} res
  */
 async function logout (req, res, next) {
+  const { query, params, companion, session } = req
   const cleanSession = () => {
-    if (req.session.grant) {
-      req.session.grant.state = null
-      req.session.grant.dynamic = null
+    if (session.grant) {
+      session.grant.state = null
+      session.grant.dynamic = null
     }
   }
-  const { providerName } = req.params
-  const { companion } = req
+  const { providerName } = params
   const tokens = companion.allProvidersTokens ? companion.allProvidersTokens[providerName] : null
 
   if (!tokens) {
@@ -25,7 +25,7 @@ async function logout (req, res, next) {
 
   try {
     const { accessToken } = tokens
-    const data = await companion.provider.logout({ token: accessToken, companion })
+    const data = await companion.provider.logout({ companion, token: accessToken, query })
     delete companion.allProvidersTokens[providerName]
     tokenService.removeFromCookies(res, companion.options, companion.provider.authProvider)
     cleanSession()
