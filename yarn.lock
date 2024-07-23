@@ -10441,7 +10441,7 @@ __metadata:
     pre-commit: ^1.2.2
     remark-cli: ^11.0.0
     resolve: ^1.17.0
-    sass: ^1.29.0
+    sass: ^1.77.8
     start-server-and-test: ^1.14.0
     stylelint: ^15.0.0
     stylelint-config-rational-order: ^0.1.2
@@ -32642,7 +32642,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.29.0, sass@npm:^1.32.8":
+"sass@npm:^1.32.8":
   version: 1.54.7
   resolution: "sass@npm:1.54.7"
   dependencies:
@@ -32652,6 +32652,19 @@ __metadata:
   bin:
     sass: sass.js
   checksum: 4b6a10e93387e65dcbad2683d46b4249453ab8777c1bafab7a73ac3900a21fa91fa31d68df7a1b982c7e332a99b5574b1adc6168eb1ac6d7ebb28e18a65c4198
+  languageName: node
+  linkType: hard
+
+"sass@npm:^1.77.8":
+  version: 1.77.8
+  resolution: "sass@npm:1.77.8"
+  dependencies:
+    chokidar: ">=3.0.0 <4.0.0"
+    immutable: ^4.0.0
+    source-map-js: ">=0.6.2 <2.0.0"
+  bin:
+    sass: sass.js
+  checksum: 6b5dce17faa1bd1e349b4825bf7f76559a32f3f95d789cd2847623c88ee9635e1485d3458532a05fa5b9134cfbce79a4bad3f13dc63c2433632347674db0abae
   languageName: node
   linkType: hard
 
