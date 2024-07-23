@@ -50,6 +50,7 @@ def lint(ctx):
         "trigger": {
             "ref": [
                 "refs/heads/main",
+                "refs/heads/webdav-imports",
                 "refs/tags/**",
                 "refs/pull/**",
             ],
@@ -72,6 +73,7 @@ def build(ctx):
         "trigger": {
             "ref": [
                 "refs/heads/main",
+                "refs/heads/webdav-imports",
                 "refs/tags/**",
                 "refs/pull/**",
             ],
