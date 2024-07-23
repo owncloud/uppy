@@ -21,7 +21,7 @@
     "url": "git+https://github.com/transloadit/uppy.git"
   },
   "dependencies": {
-    "nanoid": "^4.0.0"
+    "nanoid": "^5.0.7"
   },
   "devDependencies": {
     "@jest/globals": "^29.0.0",

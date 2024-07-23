@@ -22,7 +22,7 @@
   "dependencies": {
     "@uppy/utils": "workspace:^",
     "classnames": "^2.2.6",
-    "nanoid": "^4.0.0",
+    "nanoid": "^5.0.7",
     "p-queue": "^7.3.4",
     "preact": "^10.5.13"
   },
