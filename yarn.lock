@@ -350,15 +350,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular/common@npm:>= 14, @angular/common@npm:^14.1.0":
-  version: 14.2.0
-  resolution: "@angular/common@npm:14.2.0"
+"@angular/common@npm:>= 18, @angular/common@npm:^18.1.1":
+  version: 18.1.1
+  resolution: "@angular/common@npm:18.1.1"
   dependencies:
     tslib: ^2.3.0
   peerDependencies:
-    "@angular/core": 14.2.0
+    "@angular/core": 18.1.1
     rxjs: ^6.5.3 || ^7.4.0
-  checksum: 760830c84d68ba5696a7929d38bb475d3c60d9bb1fa410fbd5d97c66a5b91b4aef3df3473bbb78ca836d24673e751de5800a82c6df2bd57456bd9a064f7043ff
+  checksum: fb79c99ed48080dbc4b8287af4861840851d6ab7f9ffb5f2bc3f45f01cebd209c671184ce84efacedce40ecb4505b3cc1452b71df84b836c6e39bda5d71d573f
   languageName: node
   linkType: hard
 
@@ -10532,7 +10532,7 @@ __metadata:
     "@angular-eslint/template-parser": ^14.0.2
     "@angular/animations": ^14.1.0
     "@angular/cli": ~14.2.0
-    "@angular/common": ^14.1.0
+    "@angular/common": ^18.1.1
     "@angular/compiler": ^14.1.0
     "@angular/compiler-cli": ^14.1.0
     "@angular/core": ^14.1.0
@@ -12530,7 +12530,7 @@ __metadata:
     "@angular-devkit/build-angular": ">= 14"
     "@angular/animations": ">= 14"
     "@angular/cli": ">= 14"
-    "@angular/common": ">= 14"
+    "@angular/common": ">= 18"
     "@angular/compiler": ">= 14"
     "@angular/compiler-cli": ">= 14"
     "@angular/core": ">= 14"
